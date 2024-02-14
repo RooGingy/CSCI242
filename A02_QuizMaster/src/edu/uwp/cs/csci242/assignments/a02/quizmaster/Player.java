@@ -95,6 +95,6 @@ public class Player {
      * @return String of the players name.
      */
     public String toString(){
-        return "";
+        return getFirstName();
     }
 }

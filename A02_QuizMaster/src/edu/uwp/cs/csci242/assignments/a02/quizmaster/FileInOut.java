@@ -189,17 +189,6 @@ public class FileInOut
 
 
     /**
-     * Sets the input file name.
-     *
-     * @param inFilename String value of the input file name.
-     */
-    public void setInFilename ( String inFilename ) {
-        // Todo
-        this.inFilename=inFilename;
-    }
-
-
-    /**
      * Retrieves the output file name.
      *
      * @return String value of the output file name.
@@ -229,6 +218,17 @@ public class FileInOut
     public Scanner getInFile() {
         // Todo
         return inFile;
+    }
+
+
+    /**
+     * Sets the input file name.
+     *
+     * @param inFilename String value of the input file name.
+     */
+    public void setInFilename ( String inFilename ) {
+        // Todo
+        this.inFilename=inFilename;
     }
 
 
