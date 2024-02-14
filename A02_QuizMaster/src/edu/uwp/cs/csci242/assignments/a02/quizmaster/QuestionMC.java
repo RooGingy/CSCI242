@@ -62,6 +62,4 @@ public class QuestionMC extends Question {
     public String toString(){
         return "";
     }
-
-
 }
