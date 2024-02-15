@@ -1,9 +1,25 @@
+/**
+ * Player Class
+ * <p>
+ * Class gets the players first name, last name, and score.
+ * <p>
+ * And even more explanations to follow in consecutive
+ * paragraphs separated by HTML paragraph breaks.
+ *
+ *  * @author Austin Moser
+ *  * @edu.uwp.cs.242.course CSCI 242 - Computer Science II
+ *  * @edu.uwp.cs.242.section 002
+ *  * @edu.uwp.cs.242.assignment 2
+ *  * @bugs None
+ */
+
 package edu.uwp.cs.csci242.assignments.a02.quizmaster;
 
 public class Player {
     private String firstName;   // The first name of the player
     private String lastName;    // The last name of the player
-    private int score;  // The players current score.
+    private int score;  // The current score of the player.
+
 
     /**
      * Default Constructor
@@ -16,6 +32,7 @@ public class Player {
         this.score = 0;
     }
 
+
     /**
      * Two Argument Constructor
      * <p>
@@ -27,6 +44,7 @@ public class Player {
         this.firstName=firstName;
         this.lastName=lastName;
     }
+
 
     /**
      * Three Argument Constructor
@@ -42,57 +60,66 @@ public class Player {
         this.score=score;
     }
 
+
     /**
+     * Retrieves the first name of the person.
      *
-     * @return
+     * @return The first name of the person.
      */
     public String getFirstName() {
         return firstName;
     }
 
+
     /**
+     * Sets the first name of the player.
      *
-     * @param firstName
+     * @param firstName Set the first name for the player.
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     /**
+     * Retrieves the last name of the person.
      *
-     * @return
+     * @return The last name of the person.
      */
-    public String getLastName() {
-        return lastName;
+    public String getLastName() {return lastName;
     }
 
-    /**
-     *
-     * @param lastName
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     /**
+     * Sets the last name of the player.
      *
-     * @return
+     * @param lastName Set the last name for the player.
+     */
+    public void setLastName(String lastName) {this.lastName = lastName;}
+
+
+    /**
+     * Retrieves the score of the player.
+     *
+     * @return The score of the player.
      */
     public int getScore() {
         return score;
     }
 
+
     /**
+     * Sets the score of the player.
      *
-     * @param score
+     * @param score The score for the player.
      */
     public void setScore(int score) {
         this.score = score;
     }
 
+
     /**
-     * Converts the Player Object into a string.
-     * @return String of the players name.
+     * Converts the player object into a string.
+     * @return The string of the player's name.
      */
     public String toString(){
         return getFirstName();

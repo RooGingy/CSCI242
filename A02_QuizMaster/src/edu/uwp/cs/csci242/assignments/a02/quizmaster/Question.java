@@ -11,8 +11,8 @@ public class Question {
      * ahhh
      */
     public Question(){
-        this.points=0;
-        this.text="";
+        this.points = 0;
+        this.text = "";
     }
 
     /**
@@ -24,8 +24,8 @@ public class Question {
      * @param text
      */
     public Question(int points, String text){
-        this.points=points;
-        this.text=text;
+        this.points = points;
+        this.text = text;
     }
 
     /**

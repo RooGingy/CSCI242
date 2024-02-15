@@ -17,13 +17,12 @@
  *
  * @author Austin Moser
  * @edu.uwp.cs.242.course CSCI 242 - Computer Science II
- * @edu.uwp.cs.242.section 001
- * @edu.uwp.cs.242.assignment 1
+ * @edu.uwp.cs.242.section 002
+ * @edu.uwp.cs.242.assignment 2
  * @bugs None
  */
 
 package edu.uwp.cs.csci242.assignments.a02.quizmaster;
-
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Scanner;

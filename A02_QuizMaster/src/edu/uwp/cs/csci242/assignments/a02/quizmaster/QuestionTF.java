@@ -39,7 +39,7 @@ public class QuestionTF extends Question {
         super();
         points = getPoints();
         text = getText();
-        this.answer=answer;
+        this.answer = answer;
     }
 
     /**
