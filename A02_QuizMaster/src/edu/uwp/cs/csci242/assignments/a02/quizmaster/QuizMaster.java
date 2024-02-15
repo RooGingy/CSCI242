@@ -1,7 +1,7 @@
 /**
- * Quick, one line description of the assignment
+ * QuizMaster Class
  * <p>
- * Longer description. If there is any, it would be here.
+ *
  * <p>
  * And even more explanations to follow in consecutive
  * paragraphs separated by HTML paragraph breaks.
@@ -21,7 +21,7 @@ import java.util.Scanner;
 public class QuizMaster {
 
     private static final ArrayList<Question> questionsDb = new ArrayList<Question>();
-    private static Player player;
+    private static Player player = new Player();
     private static int maxNumberOfQuestions;
 
 
@@ -30,29 +30,57 @@ public class QuizMaster {
      * @param question
      * @return
      */
-    private String getAnswer(Question question){ return toString(); }
+    private String getAnswer(Question question){ return ""; }
 
 
     /**
+     * Reads player information from the preset Scanner file.
+     * <p>
+     * This method reads the first name and last name of the player using a Scanner object
+     * that reads from the file. If the Scanner object is initialized right it should read
+     * and store the player information to the player class setters.
+     * <p>
+     * If there is no next line, then the file will close.
+     *<p>
+     *     Used Code that shows the pre-initialize Scanner Object:
+     *      System.out.println("Please enter the name of the file containing the data:");
+     *      String fileName = userInput.nextLine();
+     *      // Instantiates a FileInOut object
+     *      FileInOut fio = new FileInOut(fileName, "default_out.txt" , true);
      *
-     * @param fileIn
+     * @param fileIn Scanner Object of the file that is being read.
      */
     private static void readPlayer(Scanner fileIn){
         if(fileIn.hasNext()){
+            player = new Player();
             String firstname = fileIn.nextLine();
             player.setFirstName(firstname);
             String lastName = fileIn.nextLine();
             player.setLastName(lastName);
         }
-        else
-            System.out.println("Error: Check readPlayer() method");
+        /* Look in FilesInOut and see if
+        I can close if or if it already
+        closes the file for me. */
     }
 
 
     /**
+     * Reads Question information of a Short Answer Question from the preset Scanner file.
+     * <p>
+     * This method reads the question text and the answer text using the Scanner object
+     * that reads from the file. If the Scanner object is initialized right it should read
+     * and store the question text and the answer to the QuestionSA setters.
+     * <p>
+     * If there is no next line, then the file will close.
+     *<p>
+     *     Used Code that shows the pre-initialize Scanner Object:
+     *      System.out.println("Please enter the name of the file containing the data:");
+     *      String fileName = userInput.nextLine();
+     *      // Instantiates a FileInOut object
+     *      FileInOut fio = new FileInOut(fileName, "default_out.txt" , true);
      *
-     * @param fileIn
-     * @param points
+     * @param fileIn Scanner Object of the file that is being read.
+     * @param points The points of the question type.
      */
     private static void readQuestionMC(Scanner fileIn, int points){
         if(fileIn.hasNext()){
@@ -80,15 +108,30 @@ public class QuizMaster {
 
 
     /**
+     * Reads Question information of a Short Answer Question from the preset Scanner file.
+     * <p>
+     * This method reads the question text and the answer text using the Scanner object
+     * that reads from the file. If the Scanner object is initialized right it should read
+     * and store the question text and the answer to the QuestionSA setters.
+     * <p>
+     * If there is no next line, then the file will close.
+     *<p>
+     *     Used Code that shows the pre-initialize Scanner Object:
+     *      System.out.println("Please enter the name of the file containing the data:");
+     *      String fileName = userInput.nextLine();
+     *      // Instantiates a FileInOut object
+     *      FileInOut fio = new FileInOut(fileName, "default_out.txt" , true);
      *
-     * @param fileIn
-     * @param points
+     * @param fileIn Scanner Object of the file that is being read.
+     * @param points The points of the question type.
      */
     private static void readQuestionSA(Scanner fileIn, int points){
         if(fileIn.hasNext()){
+            // Scans in the file question
             String question = fileIn.nextLine();
-            String answer = fileIn.nextLine();
 
+            // Scans in the files answer
+            String answer = fileIn.nextLine();
 
             QuestionSA questionSA = new QuestionSA(points, question, answer);
             questionSA.setPoints(points);
@@ -100,15 +143,27 @@ public class QuizMaster {
 
 
     /**
+     * Reads Question information of a Short Answer Question from the preset Scanner file.
+     * <p>
+     * This method reads the question text and the answer text using the Scanner object
+     * that reads from the file. If the Scanner object is initialized right it should read
+     * and store the question text and the answer to the QuestionSA setters.
+     * <p>
+     * If there is no next line, then the file will close.
+     *<p>
+     *     Used Code that shows the pre-initialize Scanner Object:
+     *      System.out.println("Please enter the name of the file containing the data:");
+     *      String fileName = userInput.nextLine();
+     *      // Instantiates a FileInOut object
+     *      FileInOut fio = new FileInOut(fileName, "default_out.txt" , true);
      *
-     * @param fileIn
-     * @param points
+     * @param fileIn Scanner Object of the file that is being read.
+     * @param points The points of the question type.
      */
     private static void readQuestionTF(Scanner fileIn, int points){
         if(fileIn.hasNext()){
             String question = fileIn.nextLine();
             boolean answer = Boolean.parseBoolean(fileIn.nextLine());
-
 
             QuestionTF questionTF = new QuestionTF(points, question, answer);
             questionTF.setPoints(points);
@@ -117,13 +172,26 @@ public class QuizMaster {
 
             questionsDb.add(questionTF);
         }
-
     }
 
 
     /**
+     * Reads QuestionDb information from the preset Scanner file.
+     * <p>
+     * This method reads in the maximum number of questions that the
+     * data files has from the Scanner Object.It then used the max
+     * number and walked thought each question type methods. For each
+     * question it contains a type and how many points the question has.
+     * Based on the type it then goes the method of that type and reads
+     * the data form it.
+     * <p>
+     *     Used Code that shows the pre-initialize Scanner Object:
+     *      System.out.println("Please enter the name of the file containing the data:");
+     *      String fileName = userInput.nextLine();
+     *      // Instantiates a FileInOut object
+     *      FileInOut fio = new FileInOut(fileName, "default_out.txt" , true);
      *
-     * @param fileIn
+     * @param fileIn Scanner Object of the file that is being read.
      */
     private static void readQuestionDb(Scanner fileIn) {
         maxNumberOfQuestions = Integer.parseInt(fileIn.nextLine());
@@ -186,14 +254,10 @@ public class QuizMaster {
         System.out.println("Please enter the name of the file containing the data:");
         String fileName = userInput.nextLine();
 
-        // Delete later
-        //fileName= "C:\\Users\\austi\\OneDrive\\Desktop\\CS242\\A02_QuizMaster\\src\\data.txt";
-
         // Instantiates a FileInOut object
         FileInOut fio = new FileInOut(fileName, "default_out.txt" , true);
 
         // Reads the player information from the input file by calling readPlayer().
-        player = new Player();
         readPlayer(fio.getInFile());
 
         // Reads the questions from the input file by calling readQuestionDb()

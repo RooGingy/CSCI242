@@ -51,9 +51,7 @@ public class QuestionMC extends Question {
      *
      * @param answer
      */
-    public void setAnswer(char answer) {
-        this.answer = answer;
-    }
+    public void setAnswer(char answer) { this.answer = answer; }
 
     /**
      *
