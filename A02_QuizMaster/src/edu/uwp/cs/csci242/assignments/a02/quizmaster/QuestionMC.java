@@ -8,7 +8,7 @@ public class QuestionMC extends Question {
      * <p>
      * aggg
      */
-    public QuestionMC(){ this.answer='A'; }
+    public QuestionMC(){ this.answer = 'A'; }
 
     /**
      * One Argument Constructor

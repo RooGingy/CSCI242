@@ -90,13 +90,13 @@ public class QuizMaster {
     private static void readQuestionMC(Scanner fileIn, int points){
         if(fileIn.hasNext()){
             // Scans the file question.
-            String question = fileIn.nextLine();
+            StringBuilder questionAndAnswers = new StringBuilder(fileIn.nextLine());
 
-            ArrayList<String> questionChoices = new ArrayList<String>();
             int numberOfAnswers = Integer.parseInt(fileIn.nextLine());
             for(int i = 0; i<numberOfAnswers; i++){
                 if(fileIn.hasNext()){
-                    questionChoices.add(fileIn.nextLine());
+                    String mcAnswers = fileIn.nextLine();
+                    questionAndAnswers.append("\n").append(mcAnswers);
                 }
             }
             String stringAnswer = fileIn.nextLine();
@@ -104,11 +104,11 @@ public class QuizMaster {
 
 
             // Stores all data collected to the question database list.
-            QuestionMC questionMC = new QuestionMC(points, question, answer);
+            QuestionMC questionMC = new QuestionMC(points, questionAndAnswers.toString(), answer);
 
             // Sets each parameter of the object constructor.
             questionMC.setPoints(points);
-            questionMC.setText(question);
+            questionMC.setText(questionAndAnswers.toString());
             questionMC.setAnswer(answer);
 
             // Adds object to question list.
@@ -228,10 +228,10 @@ public class QuizMaster {
 
                 // Separates the question type and points in to 2 parts.a
                 String qtype = questionType.split(" ")[0];
-                String stringPoints = questionType.split(" ")[1];
+                String qPoints = questionType.split(" ")[1];
 
                 // Converts stringPoints to int.
-                int points = Integer.parseInt(stringPoints);
+                int points = Integer.parseInt(qPoints);
 
                 // Switch Case that looks for
                 switch (qtype) {
@@ -288,17 +288,16 @@ public class QuizMaster {
             question = questionsDb.get(indexNum);
 
             // Sets the question points and text.
-            question.setPoints(questionsDb.get(indexNum).getPoints());
-            question.setText(questionsDb.get(indexNum).getText());
+            //question.setPoints(questionsDb.get(indexNum).getPoints());
+            ///question.setText(questionsDb.get(indexNum).getText());
 
             // Prints the question out.
             System.out.println(question.getText());
 
             // Gets user input to answer question.
-            String userAnswer = kbdIn.nextLine();
+            String userAnswer = kbdIn.next();
+            System.out.println(userAnswer);
         }
-
-
     }
 
 

@@ -5,6 +5,7 @@ public class Question {
     private int points;
     private String text;
 
+
     /**
      * Default Constructor
      * <p>
