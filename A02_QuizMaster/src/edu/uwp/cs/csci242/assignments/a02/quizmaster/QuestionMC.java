@@ -8,9 +8,7 @@ public class QuestionMC extends Question {
      * <p>
      * aggg
      */
-    public QuestionMC(){
-        this.answer='a';
-    }
+    public QuestionMC(){ this.answer='A'; }
 
     /**
      * One Argument Constructor
@@ -20,7 +18,7 @@ public class QuestionMC extends Question {
      * @param answer
      */
     public QuestionMC(char answer){
-        this.answer=answer;
+        this.answer = answer;
     }
 
     /**
@@ -57,7 +55,5 @@ public class QuestionMC extends Question {
      *
      * @return
      */
-    public String toString(){
-        return "";
-    }
+    public String toString(){ return ""; }
 }

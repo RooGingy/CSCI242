@@ -16,6 +16,7 @@
 package edu.uwp.cs.csci242.assignments.a02.quizmaster;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class QuizMaster {
@@ -24,13 +25,17 @@ public class QuizMaster {
     private static Player player = new Player();
     private static int maxNumberOfQuestions;
 
+    private static int indexNum;
+
 
     /**
      *
      * @param question
      * @return
      */
-    private String getAnswer(Question question){ return ""; }
+    private String getAnswer(Question question){
+        return "";
+    }
 
 
     /**
@@ -52,16 +57,16 @@ public class QuizMaster {
      */
     private static void readPlayer(Scanner fileIn){
         if(fileIn.hasNext()){
+            // Create a player object
             player = new Player();
             String firstname = fileIn.nextLine();
             player.setFirstName(firstname);
             String lastName = fileIn.nextLine();
             player.setLastName(lastName);
         }
-        /* Look in FilesInOut and see if
-        I can close if or if it already
-        closes the file for me. */
+        //else FileInOut.closeFiles();
     }
+
 
 
     /**
@@ -84,6 +89,7 @@ public class QuizMaster {
      */
     private static void readQuestionMC(Scanner fileIn, int points){
         if(fileIn.hasNext()){
+            // Scans the file question.
             String question = fileIn.nextLine();
 
             ArrayList<String> questionChoices = new ArrayList<String>();
@@ -99,11 +105,16 @@ public class QuizMaster {
 
             // Stores all data collected to the question database list.
             QuestionMC questionMC = new QuestionMC(points, question, answer);
+
+            // Sets each parameter of the object constructor.
             questionMC.setPoints(points);
             questionMC.setText(question);
             questionMC.setAnswer(answer);
+
+            // Adds object to question list.
             questionsDb.add(questionMC);
         }
+        //else FileInOut.closeFiles();
     }
 
 
@@ -127,27 +138,33 @@ public class QuizMaster {
      */
     private static void readQuestionSA(Scanner fileIn, int points){
         if(fileIn.hasNext()){
-            // Scans in the file question
+            // Scans the file question.
             String question = fileIn.nextLine();
 
-            // Scans in the files answer
+            // Scans the files answer.
             String answer = fileIn.nextLine();
 
+            // Creates questionSA object.
             QuestionSA questionSA = new QuestionSA(points, question, answer);
+
+            // Sets each parameter of the object constructor.
             questionSA.setPoints(points);
             questionSA.setText(question);
             questionSA.setAnswer(answer);
+
+            // Adds object to question list.
             questionsDb.add(questionSA);
         }
+        //else FileInOut.closeFiles();
     }
 
 
     /**
-     * Reads Question information of a Short Answer Question from the preset Scanner file.
+     * Reads Question information of a True/False Question from the preset Scanner file.
      * <p>
      * This method reads the question text and the answer text using the Scanner object
      * that reads from the file. If the Scanner object is initialized right it should read
-     * and store the question text and the answer to the QuestionSA setters.
+     * and store the question text and the answer to the QuestionTF setters.
      * <p>
      * If there is no next line, then the file will close.
      *<p>
@@ -162,16 +179,24 @@ public class QuizMaster {
      */
     private static void readQuestionTF(Scanner fileIn, int points){
         if(fileIn.hasNext()){
+            // Scans the file question
             String question = fileIn.nextLine();
+
+            // Scans the files answer.
             boolean answer = Boolean.parseBoolean(fileIn.nextLine());
 
+            // Creates questionTF object
             QuestionTF questionTF = new QuestionTF(points, question, answer);
+
+            // Sets each parameter of the object constructor.
             questionTF.setPoints(points);
             questionTF.setText(question);
             questionTF.setAnswer(answer);
 
+            // Adds object to question list.
             questionsDb.add(questionTF);
         }
+        //else FileInOut.closeFiles();
     }
 
 
@@ -194,34 +219,37 @@ public class QuizMaster {
      * @param fileIn Scanner Object of the file that is being read.
      */
     private static void readQuestionDb(Scanner fileIn) {
-        maxNumberOfQuestions = Integer.parseInt(fileIn.nextLine());
+        if(fileIn.hasNext()) {
+            maxNumberOfQuestions = Integer.parseInt(fileIn.nextLine());
 
-        for (int i = 0; i < maxNumberOfQuestions; i++) {
-            // Reads the next line from the file.
-            String questionType = fileIn.nextLine();
+            for (int i = 0; i < maxNumberOfQuestions; i++) {
+                // Reads the next line from the file.
+                String questionType = fileIn.nextLine();
 
-            // Separates the question type and points in to 2 parts.a
-            String qtype = questionType.split(" ")[0];
-            String stringPoints = questionType.split(" ")[1];
+                // Separates the question type and points in to 2 parts.a
+                String qtype = questionType.split(" ")[0];
+                String stringPoints = questionType.split(" ")[1];
 
-            // Converts stringPoints to int.
-            int points = Integer.parseInt(stringPoints);
+                // Converts stringPoints to int.
+                int points = Integer.parseInt(stringPoints);
 
-            // Switch Case that looks for
-            switch (qtype) {
-                case "MC":
-                    readQuestionMC(fileIn, points);
-                    break;
+                // Switch Case that looks for
+                switch (qtype) {
+                    case "MC":
+                        readQuestionMC(fileIn, points);
+                        break;
 
-                case "SA":
-                    readQuestionSA(fileIn, points);
-                    break;
+                    case "SA":
+                        readQuestionSA(fileIn, points);
+                        break;
 
-                case "TF":
-                    readQuestionTF(fileIn, points);
-                    break;
+                    case "TF":
+                        readQuestionTF(fileIn, points);
+                        break;
+                }
             }
         }
+        //else FileInOut.closeFiles();
     }
 
 
@@ -230,15 +258,47 @@ public class QuizMaster {
      * @param kbdIn
      */
     private static void play(Scanner kbdIn){
-        Scanner input = new Scanner(System.in);
-        int userInput;
-        // If userInput is out of the range of 1-maxNumberOfQuestions, then it will ask user the question again.
+        System.out.println("Welcome to QuizMaster, " + player.getFirstName() + "!");
+
+        /* If user input is out of the range of 1 and the max number of questions in data file,
+        then it will ask user the question again. */
+        int questionUserWants;
+
         do{
             System.out.println("How many questions would you like (out of " + maxNumberOfQuestions +")?");
-            userInput = input.nextInt();
+            questionUserWants = kbdIn.nextInt();
 
-        } while (userInput < 1 || userInput > maxNumberOfQuestions );
+        } while (questionUserWants < 1 || questionUserWants > maxNumberOfQuestions );
+
         // The user then assigned a random problem from the database.
+        // Randomizes the questions stored in the database.
+        Collections.shuffle(questionsDb);
+
+        // Loops though each shuffled question.
+        for(int i = 1; i <= questionUserWants; i++){
+            System.out.println("Question " + i);
+
+            // Reduces the array array list number
+            indexNum = i - 1;
+
+            // Creates question object.
+            Question question = new Question();
+
+            // Gets the question from the shuffled list.
+            question = questionsDb.get(indexNum);
+
+            // Sets the question points and text.
+            question.setPoints(questionsDb.get(indexNum).getPoints());
+            question.setText(questionsDb.get(indexNum).getText());
+
+            // Prints the question out.
+            System.out.println(question.getText());
+
+            // Gets user input to answer question.
+            String userAnswer = kbdIn.nextLine();
+        }
+
+
     }
 
 
