@@ -31,10 +31,7 @@ public class QuizMaster {
      * @param question
      * @return
      */
-    private String getAnswer(Question question){
-        return "";
-    }
-
+    private String getAnswer(Question question){ return ""; }
 
     /**
      * Reads player information from the preset Scanner file.
@@ -110,7 +107,6 @@ public class QuizMaster {
 
             // Converts the answer to char.
             char answer = stringAnswer.charAt(0);
-
             // Stores all data collected to the question database list.
             QuestionMC questionMC = new QuestionMC(points, question.toString(), answer);
 

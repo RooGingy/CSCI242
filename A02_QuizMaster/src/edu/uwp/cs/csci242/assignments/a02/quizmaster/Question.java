@@ -5,6 +5,7 @@ public class Question {
     private int points;
     private String text;
 
+
     /**
      * Default Constructor
      * <p>
@@ -14,6 +15,7 @@ public class Question {
         this.points = 0;
         this.text = "";
     }
+
 
     /**
      * Two Argument Constructor
@@ -28,6 +30,7 @@ public class Question {
         this.text = text;
     }
 
+
     /**
      *
      * @return
@@ -35,6 +38,7 @@ public class Question {
     public int getPoints() {
         return points;
     }
+
 
     /**
      *
@@ -44,6 +48,7 @@ public class Question {
         this.points = points;
     }
 
+
     /**
      *
      * @return
@@ -52,6 +57,7 @@ public class Question {
         return text;
     }
 
+
     /**
      *
      * @param text
@@ -59,6 +65,7 @@ public class Question {
     public void setText(String text) {
         this.text = text;
     }
+
 
     /**
      * Converts a Question Object to a string.

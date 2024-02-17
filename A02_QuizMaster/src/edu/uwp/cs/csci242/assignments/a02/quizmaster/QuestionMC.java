@@ -8,7 +8,7 @@ public class QuestionMC extends Question {
      * <p>
      * aggg
      */
-    public QuestionMC(){ this.answer='A'; }
+    public QuestionMC(){ this.answer = 'A'; }
 
     /**
      * One Argument Constructor
@@ -32,9 +32,9 @@ public class QuestionMC extends Question {
      */
     public QuestionMC(int points, String text, char answer){
         super();
-        points = getPoints();
-        text = getText();
-        this.answer=answer;
+        super.setPoints(points);
+        super.setText(text);
+        this.answer = answer;
     }
 
     /**
