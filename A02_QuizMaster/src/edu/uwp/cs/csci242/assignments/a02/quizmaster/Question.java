@@ -64,7 +64,5 @@ public class Question {
      * Converts a Question Object to a string.
      * @return String of the question.
      */
-    public String toString(){
-        return "";
-    }
+    public String toString() { return getText(); }
 }

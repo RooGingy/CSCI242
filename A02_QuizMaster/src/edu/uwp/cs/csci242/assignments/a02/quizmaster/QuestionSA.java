@@ -60,7 +60,5 @@ public class QuestionSA extends Question {
      *
      * @return
      */
-    public String toString(){
-        return "";
-    }
+    public String toString(){ return getAnswer(); }
 }

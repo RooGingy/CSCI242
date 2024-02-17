@@ -25,8 +25,6 @@ public class QuizMaster {
     private static Player player = new Player();
     private static int maxNumberOfQuestions;
 
-    private static int indexNum;
-
 
     /**
      *
@@ -67,8 +65,6 @@ public class QuizMaster {
         //else FileInOut.closeFiles();
     }
 
-
-
     /**
      * Reads Question information of a Short Answer Question from the preset Scanner file.
      * <p>
@@ -90,25 +86,55 @@ public class QuizMaster {
     private static void readQuestionMC(Scanner fileIn, int points){
         if(fileIn.hasNext()){
             // Scans the file question.
+<<<<<<< Updated upstream
             String question = fileIn.nextLine();
 
             ArrayList<String> questionChoices = new ArrayList<String>();
+=======
+            StringBuilder question = new StringBuilder(fileIn.nextLine());
+
+            // Gets the number of multiple choice options.
+>>>>>>> Stashed changes
             int numberOfAnswers = Integer.parseInt(fileIn.nextLine());
+
+            // Loops though all the options
             for(int i = 0; i<numberOfAnswers; i++){
+                // Gets the letter order of the multiple choice options.
+                char letter = 'A';
+                char answerLetter = (char) (letter + i);
+
+                // Reads in the multiple choice options.
                 if(fileIn.hasNext()){
+<<<<<<< Updated upstream
                     questionChoices.add(fileIn.nextLine());
+=======
+                    String mcAnswers = fileIn.nextLine();
+                    mcAnswers = "\n(" + answerLetter + ") " + mcAnswers;
+                    question.append(mcAnswers);
+>>>>>>> Stashed changes
                 }
             }
+
+            // Scans the file question's answer.
             String stringAnswer = fileIn.nextLine();
+
+            // Converts the answer to char.
             char answer = stringAnswer.charAt(0);
 
-
             // Stores all data collected to the question database list.
+<<<<<<< Updated upstream
             QuestionMC questionMC = new QuestionMC(points, question, answer);
 
             // Sets each parameter of the object constructor.
             questionMC.setPoints(points);
             questionMC.setText(question);
+=======
+            QuestionMC questionMC = new QuestionMC(points, question.toString(), answer);
+
+            // Sets each parameter of the object constructor.
+            questionMC.setPoints(points);
+            questionMC.setText(question.toString());
+>>>>>>> Stashed changes
             questionMC.setAnswer(answer);
 
             // Adds object to question list.
@@ -141,7 +167,7 @@ public class QuizMaster {
             // Scans the file question.
             String question = fileIn.nextLine();
 
-            // Scans the files answer.
+            // Scans the file question's answer.
             String answer = fileIn.nextLine();
 
             // Creates questionSA object.
@@ -279,7 +305,7 @@ public class QuizMaster {
             System.out.println("Question " + i);
 
             // Reduces the array array list number
-            indexNum = i - 1;
+            int indexNum = i - 1;
 
             // Creates question object.
             Question question = new Question();

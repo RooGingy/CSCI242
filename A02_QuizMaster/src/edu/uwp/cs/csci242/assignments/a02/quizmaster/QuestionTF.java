@@ -62,7 +62,5 @@ public class QuestionTF extends Question {
      *
      * @return
      */
-    public String toString(){
-        return "";
-    }
+    public String toString(){ return String.valueOf(getAnswer()); }
 }
