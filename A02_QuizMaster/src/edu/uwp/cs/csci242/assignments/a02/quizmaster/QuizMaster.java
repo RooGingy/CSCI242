@@ -86,15 +86,9 @@ public class QuizMaster {
     private static void readQuestionMC(Scanner fileIn, int points){
         if(fileIn.hasNext()){
             // Scans the file question.
-<<<<<<< Updated upstream
-            String question = fileIn.nextLine();
-
-            ArrayList<String> questionChoices = new ArrayList<String>();
-=======
             StringBuilder question = new StringBuilder(fileIn.nextLine());
 
             // Gets the number of multiple choice options.
->>>>>>> Stashed changes
             int numberOfAnswers = Integer.parseInt(fileIn.nextLine());
 
             // Loops though all the options
@@ -105,13 +99,9 @@ public class QuizMaster {
 
                 // Reads in the multiple choice options.
                 if(fileIn.hasNext()){
-<<<<<<< Updated upstream
-                    questionChoices.add(fileIn.nextLine());
-=======
                     String mcAnswers = fileIn.nextLine();
                     mcAnswers = "\n(" + answerLetter + ") " + mcAnswers;
                     question.append(mcAnswers);
->>>>>>> Stashed changes
                 }
             }
 
@@ -122,19 +112,11 @@ public class QuizMaster {
             char answer = stringAnswer.charAt(0);
 
             // Stores all data collected to the question database list.
-<<<<<<< Updated upstream
-            QuestionMC questionMC = new QuestionMC(points, question, answer);
-
-            // Sets each parameter of the object constructor.
-            questionMC.setPoints(points);
-            questionMC.setText(question);
-=======
             QuestionMC questionMC = new QuestionMC(points, question.toString(), answer);
 
             // Sets each parameter of the object constructor.
             questionMC.setPoints(points);
             questionMC.setText(question.toString());
->>>>>>> Stashed changes
             questionMC.setAnswer(answer);
 
             // Adds object to question list.
@@ -254,10 +236,10 @@ public class QuizMaster {
 
                 // Separates the question type and points in to 2 parts.a
                 String qtype = questionType.split(" ")[0];
-                String stringPoints = questionType.split(" ")[1];
+                String qPoints = questionType.split(" ")[1];
 
                 // Converts stringPoints to int.
-                int points = Integer.parseInt(stringPoints);
+                int points = Integer.parseInt(qPoints);
 
                 // Switch Case that looks for
                 switch (qtype) {
@@ -314,17 +296,16 @@ public class QuizMaster {
             question = questionsDb.get(indexNum);
 
             // Sets the question points and text.
-            question.setPoints(questionsDb.get(indexNum).getPoints());
-            question.setText(questionsDb.get(indexNum).getText());
+            //question.setPoints(questionsDb.get(indexNum).getPoints());
+            ///question.setText(questionsDb.get(indexNum).getText());
 
             // Prints the question out.
             System.out.println(question.getText());
 
             // Gets user input to answer question.
-            String userAnswer = kbdIn.nextLine();
+            String userAnswer = kbdIn.next();
+            System.out.println(userAnswer);
         }
-
-
     }
 
 
