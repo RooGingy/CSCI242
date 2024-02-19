@@ -37,8 +37,8 @@ public class QuestionTF extends Question {
      */
     public QuestionTF(int points, String text, boolean answer){
         super();
-        points = getPoints();
-        text = getText();
+        super.setPoints(points);
+        super.setText(text);
         this.answer = answer;
     }
 
@@ -62,7 +62,5 @@ public class QuestionTF extends Question {
      *
      * @return
      */
-    public String toString(){
-        return "";
-    }
+    public String toString(){ return String.valueOf(getAnswer()); }
 }

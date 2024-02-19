@@ -32,9 +32,9 @@ public class QuestionMC extends Question {
      */
     public QuestionMC(int points, String text, char answer){
         super();
-        points = getPoints();
-        text = getText();
-        this.answer=answer;
+        super.setPoints(points);
+        super.setText(text);
+        this.answer = answer;
     }
 
     /**
@@ -55,5 +55,5 @@ public class QuestionMC extends Question {
      *
      * @return
      */
-    public String toString(){ return ""; }
+    public String toString(){ return String.valueOf(getAnswer()); }
 }

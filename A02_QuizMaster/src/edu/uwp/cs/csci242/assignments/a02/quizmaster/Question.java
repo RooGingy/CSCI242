@@ -16,6 +16,7 @@ public class Question {
         this.text = "";
     }
 
+
     /**
      * Two Argument Constructor
      * <p>
@@ -29,6 +30,7 @@ public class Question {
         this.text = text;
     }
 
+
     /**
      *
      * @return
@@ -36,6 +38,7 @@ public class Question {
     public int getPoints() {
         return points;
     }
+
 
     /**
      *
@@ -45,6 +48,7 @@ public class Question {
         this.points = points;
     }
 
+
     /**
      *
      * @return
@@ -52,6 +56,7 @@ public class Question {
     public String getText() {
         return text;
     }
+
 
     /**
      *
@@ -61,11 +66,10 @@ public class Question {
         this.text = text;
     }
 
+
     /**
      * Converts a Question Object to a string.
      * @return String of the question.
      */
-    public String toString(){
-        return "";
-    }
+    public String toString() { return getText(); }
 }

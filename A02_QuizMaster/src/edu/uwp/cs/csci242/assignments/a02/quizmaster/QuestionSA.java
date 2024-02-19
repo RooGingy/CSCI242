@@ -35,8 +35,8 @@ public class QuestionSA extends Question {
      */
     public QuestionSA(int points, String text, String answer){
         super();
-        points = getPoints();
-        text = getText();
+        super.setPoints(points);
+        super.setText(text);
         this.answer = answer;
     }
 
@@ -60,7 +60,5 @@ public class QuestionSA extends Question {
      *
      * @return
      */
-    public String toString(){
-        return "";
-    }
+    public String toString(){ return getAnswer(); }
 }
