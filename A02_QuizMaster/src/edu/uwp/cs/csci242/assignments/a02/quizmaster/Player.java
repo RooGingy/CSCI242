@@ -6,25 +6,38 @@
  * And even more explanations to follow in consecutive
  * paragraphs separated by HTML paragraph breaks.
  *
- *  * @author Austin Moser
- *  * @edu.uwp.cs.242.course CSCI 242 - Computer Science II
- *  * @edu.uwp.cs.242.section 002
- *  * @edu.uwp.cs.242.assignment 2
- *  * @bugs None
+ * @author Austin Moser
+ * @edu.uwp.cs.242.course CSCI 242 - Computer Science II
+ * @edu.uwp.cs.242.section 002
+ * @edu.uwp.cs.242.assignment 2
+ * @bugs None
  */
 
 package edu.uwp.cs.csci242.assignments.a02.quizmaster;
 
 public class Player {
+    /**
+     * The first name of the player.
+     */
     private String firstName;   // The first name of the player
+
+    /**
+     * The last name of the player.
+     */
     private String lastName;    // The last name of the player
+
+    /**
+     * The score of that the player gets.
+     */
     private int score;  // The current score of the player.
 
 
     /**
-     * Default Constructor
+     * Constructs a new Player object with default values.
      * <p>
-     * Presets all class attributes to
+     * This constructor initializes a new Player object with default values
+     * for the first name, last name, and score. The first name and last name
+     * are set to empty strings, and the score is initialized to zero.
      */
     public Player(){
         this.firstName = "";
@@ -34,11 +47,13 @@ public class Player {
 
 
     /**
-     * Two Argument Constructor
+     * Constructs a new Player object with the specified first name and last name.
      * <p>
-     * Ahhhhh <----
-     * @param firstName
-     * @param lastName
+     * This constructor creates a new Player object with the provided first name
+     * and last name.
+     *
+     * @param firstName The first name of the player.
+     * @param lastName The last name of the player.
      */
     public Player(String firstName, String lastName){
         this.firstName=firstName;
@@ -47,12 +62,13 @@ public class Player {
 
 
     /**
-     * Three Argument Constructor
+     * Constructs a new Player object with the specified first name, last name, and score.
      * <p>
-     * Ahhhh
-     * @param firstName
-     * @param lastName
-     * @param score
+     * This constructor creates a new Player object with the provided first name, last name and score
+     *
+     * @param firstName The first name of the player.
+     * @param lastName The last name of the player.
+     * @param score The score of the player.
      */
     public Player(String firstName, String lastName, int score){
         this.firstName=firstName;
@@ -117,9 +133,9 @@ public class Player {
     }
 
 
-
     /**
      * Converts the player object into a string.
+     *
      * @return The string of the player's name.
      */
     public String toString(){

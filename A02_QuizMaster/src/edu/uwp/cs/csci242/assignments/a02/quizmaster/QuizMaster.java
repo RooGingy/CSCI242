@@ -1,10 +1,10 @@
 /**
  * QuizMaster Class
  * <p>
- *
- * <p>
- * And even more explanations to follow in consecutive
- * paragraphs separated by HTML paragraph breaks.
+ * QuizMaster is a Java program that allows players to participate in a quiz game.
+ * Players can answer a specified number of questions from a database containing
+ * various question types such as multiple-choice, short answer, and true/false.
+ * Players earn points for correct answers and lose points for incorrect answers.
  *
  * @author Austin Moser
  * @edu.uwp.cs.242.course CSCI 242 - Computer Science II
@@ -20,16 +20,37 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class QuizMaster {
-
+    /**
+     * Name of ArrayList database.
+     */
     private static final ArrayList<Question> questionsDb = new ArrayList<>();
-    private static Player player = new Player();
-    private static int maxNumberOfQuestions;
-    //private static int listIndex;
 
     /**
+     * player object participating in the QuizMaster game.
+     */
+    private static Player player = new Player();
+
+    /**
+     * Max number of questions in the quiz database.
+     */
+    private static int maxNumberOfQuestions;
+
+
+    /**
+     * Retrieves the answer corresponding to the given question.
+     * <p>
+     * This method takes a Question object as input and returns the answer
+     * associated with that question. If the question is of type QuestionMC,
+     * it retrieves the answer as a char and converts it to a string. If the
+     * question is of type QuestionSA, it retrieves the answer without having
+     * to convert it to string. If the question is of type QuestionTF, it retrieves
+     * the answer as a bool and converts it to a string as a string.
+     * <p>
+     * Note: For multiple-choice questions (QuestionMC), the answer is converted
+     * to a string before returning.
      *
-     * @param question
-     * @return
+     * @param question The question object for which the answer is retrieved.
+     * @return The answer to the given question.
      */
     private static String getAnswer(Question question){
         String answer;
@@ -44,6 +65,7 @@ public class QuizMaster {
         }
         return answer;
     }
+
 
     /**
      * Reads player information from the preset Scanner file.
@@ -71,8 +93,8 @@ public class QuizMaster {
             String lastName = fileIn.nextLine();
             player.setLastName(lastName);
         }
-        //else FileInOut.closeFiles();
     }
+
 
     /**
      * Reads Question information of a Short Answer Question from the preset Scanner file.
@@ -130,7 +152,6 @@ public class QuizMaster {
             // Adds object to question list.
             questionsDb.add(questionMC);
         }
-        //else FileInOut.closeFiles();
     }
 
 
@@ -171,7 +192,6 @@ public class QuizMaster {
             // Adds object to question list.
             questionsDb.add(questionSA);
         }
-        //else FileInOut.closeFiles();
     }
 
 
@@ -212,7 +232,6 @@ public class QuizMaster {
             // Adds object to question list.
             questionsDb.add(questionTF);
         }
-        //else FileInOut.closeFiles();
     }
 
 
@@ -266,13 +285,23 @@ public class QuizMaster {
                 }
             }
         }
-        //else FileInOut.closeFiles();
     }
 
 
     /**
+     * Starts the quiz game.
+     * <p>
+     * This method prompts the player to specify how many questions they would like to answer
+     * from the available database. The user input is validated to ensure it falls
+     * within the range of 1 and the maximum number of questions in the database. Then, it shuffles
+     * the questions in the database and presents each question to the player in a randomized order.
+     * For each question, the player provides an answer, which is compared to the correct answer
+     * retrieved from questionDb. If the player chooses to skip the question, no points are gained
+     * or lost. If the player answers correctly, they gain points corresponding to the question's
+     * point value. If the player answers incorrectly, they lose points corresponding to the
+     * question's point value. After answering all the questions, the player's final score is displayed.
      *
-     * @param kbdIn
+     * @param kbdIn The Scanner object used to read player input.
      */
     private static void play(Scanner kbdIn){
         int score = 0;
@@ -294,20 +323,13 @@ public class QuizMaster {
 
         // Loops though each shuffled question.
         for(int listIndex = 1; listIndex <= questionUserWants; listIndex++){
-            System.out.println("Question " + listIndex);
+            System.out.println("\nQuestion " + listIndex);
 
             // Reduces the array list number
             int indexNum = listIndex - 1;
 
-            // Creates question object.
-            Question question;
-
-            // Gets the question from the shuffled list.
-            question = questionsDb.get(indexNum);
-
-            // Sets the question points and text.
-            //question.setPoints(questionsDb.get(indexNum).getPoints());
-            //question.setText(questionsDb.get(indexNum).getText());
+            // Creates question object and gets the question from the shuffled list.
+            Question question = questionsDb.get(indexNum);
 
             // Prints the question out.
             System.out.println(question.getText());
@@ -315,8 +337,11 @@ public class QuizMaster {
             // Gets user input to answer question.
             String userAnswer = kbdIn.next();
 
+            //Converts answer to string.
             String answer = getAnswer(question);
-            if(userAnswer.equals("SKIP")){
+
+            // If user types 'SKIP' then the question gets skipped else if they answer correct/wrong they will gain/lose points
+            if(userAnswer.equalsIgnoreCase("SKIP")){
                 System.out.println("You have elected to skip that question.");
             }
             else if(userAnswer.equalsIgnoreCase(answer)){
@@ -336,8 +361,15 @@ public class QuizMaster {
 
 
     /**
+     * The main point of the QuizMaster program.
+     * <p>
+     * This method initializes the QuizMaster game by asking the user to input a quiz file name
+     * containing the data. It then creates a FileInOut object with the specified input file name
+     * and calls readPlayer() to read player information from the input file. Next, it calls readQuestionDb()
+     * to read the questions from the input file. Finally, it initiates the quiz by calling play() and
+     * passing a Scanner object for user input.
      *
-     * @param args
+     * @param args The command-line arguments passed to the program
      */
     public static void main(String[] args) {
         System.out.println("***** QuizMaster *****\n");
@@ -353,10 +385,13 @@ public class QuizMaster {
         // Reads the player information from the input file by calling readPlayer().
         readPlayer(fio.getInFile());
 
-        // Reads the questions from the input file by calling readQuestionDb()
+        // Reads the questions from the input file by calling readQuestionDb().
         readQuestionDb(fio.getInFile());
 
-        // Plays the quiz by calling play()
+        // Closes the file after reading it.
+        fio.closeFiles();
+
+        // Plays the quiz by calling play().
         play(userInput);
     }
 }
