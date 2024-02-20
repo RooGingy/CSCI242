@@ -50,7 +50,6 @@ public class Question {
 
 
     /**
-     *
      * @return
      */
     public String getText() {
