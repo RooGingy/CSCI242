@@ -123,7 +123,7 @@ public class FileInOut
             inFile = new Scanner(new File(inFilename));
         }
         catch (Exception ex){
-            System.out.println("Something went wrong!");
+            System.out.println("Something went wrong with input file.");
         }
     }
 
@@ -144,7 +144,7 @@ public class FileInOut
             outFile = new PrintWriter(outFilename);
         }
         catch (Exception ex){
-            System.out.println("Something went wrong!");
+            System.out.println("Something went wrong with output file.");
         }
     }
 

@@ -21,17 +21,29 @@ import java.util.Scanner;
 
 public class QuizMaster {
 
-    private static final ArrayList<Question> questionsDb = new ArrayList<Question>();
+    private static final ArrayList<Question> questionsDb = new ArrayList<>();
     private static Player player = new Player();
     private static int maxNumberOfQuestions;
-
+    //private static int listIndex;
 
     /**
      *
      * @param question
      * @return
      */
-    private String getAnswer(Question question){ return ""; }
+    private static String getAnswer(Question question){
+        String answer;
+        if(question instanceof QuestionMC){
+           answer = (((QuestionMC) question).getAnswer()) + "";
+        }
+        else if (question instanceof QuestionSA) {
+            answer = (((QuestionSA) question).getAnswer());
+        }
+        else{
+            answer = (((QuestionTF) question).getAnswer()) + "";
+        }
+        return answer;
+    }
 
     /**
      * Reads player information from the preset Scanner file.
@@ -227,6 +239,7 @@ public class QuizMaster {
             maxNumberOfQuestions = Integer.parseInt(fileIn.nextLine());
 
             for (int i = 0; i < maxNumberOfQuestions; i++) {
+
                 // Reads the next line from the file.
                 String questionType = fileIn.nextLine();
 
@@ -262,6 +275,7 @@ public class QuizMaster {
      * @param kbdIn
      */
     private static void play(Scanner kbdIn){
+        int score = 0;
         System.out.println("Welcome to QuizMaster, " + player.getFirstName() + "!");
 
         /* If user input is out of the range of 1 and the max number of questions in data file,
@@ -279,28 +293,44 @@ public class QuizMaster {
         Collections.shuffle(questionsDb);
 
         // Loops though each shuffled question.
-        for(int i = 1; i <= questionUserWants; i++){
-            System.out.println("Question " + i);
+        for(int listIndex = 1; listIndex <= questionUserWants; listIndex++){
+            System.out.println("Question " + listIndex);
 
-            // Reduces the array array list number
-            int indexNum = i - 1;
+            // Reduces the array list number
+            int indexNum = listIndex - 1;
 
             // Creates question object.
-            Question question = new Question();
+            Question question;
 
             // Gets the question from the shuffled list.
             question = questionsDb.get(indexNum);
 
             // Sets the question points and text.
             //question.setPoints(questionsDb.get(indexNum).getPoints());
-            ///question.setText(questionsDb.get(indexNum).getText());
+            //question.setText(questionsDb.get(indexNum).getText());
 
             // Prints the question out.
             System.out.println(question.getText());
 
             // Gets user input to answer question.
             String userAnswer = kbdIn.next();
-            System.out.println(userAnswer);
+
+            String answer = getAnswer(question);
+            if(userAnswer.equals("SKIP")){
+                System.out.println("You have elected to skip that question.");
+            }
+            else if(userAnswer.equalsIgnoreCase(answer)){
+                score += questionsDb.get(indexNum).getPoints();
+                player.setScore(score);
+                System.out.println("Correct! You get " + questionsDb.get(indexNum).getPoints() + " points.");
+                System.out.println("Your current score is: " + player.getScore() + " points.");
+            }
+            else{
+                score -= questionsDb.get(indexNum).getPoints();
+                player.setScore(score);
+                System.out.println("Incorrect, the answer was '" + answer.toUpperCase() + "'. You loose " + questionsDb.get(indexNum).getPoints() + " points.");
+                System.out.println("Your current score is: " + player.getScore() + " points.");
+            }
         }
     }
 
@@ -309,16 +339,16 @@ public class QuizMaster {
      *
      * @param args
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
         System.out.println("***** QuizMaster *****\n");
 
         // Gets the name of the input file from the user/player.
-        Scanner userInput = new Scanner(System.in);
         System.out.println("Please enter the name of the file containing the data:");
+        Scanner userInput = new Scanner(System.in);
         String fileName = userInput.nextLine();
 
         // Instantiates a FileInOut object
-        FileInOut fio = new FileInOut(fileName, "default_out.txt" , true);
+        FileInOut fio = new FileInOut(fileName, "default_out.txt", true);
 
         // Reads the player information from the input file by calling readPlayer().
         readPlayer(fio.getInFile());

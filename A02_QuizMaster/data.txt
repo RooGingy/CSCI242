@@ -1,6 +1,9 @@
 John
 Smith
 3
+SA 20
+What city hosted the 2004 Summer Olympics?
+Athens
 TF 5
 There exist birds that cannot fly. (true/false)
 true
@@ -14,6 +17,3 @@ Ronald Reagan
 George Bush Sr.
 Bill Clinton
 E
-SA 20
-What city hosted the 2004 Summer Olympics?
-Athens

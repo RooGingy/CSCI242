@@ -36,7 +36,7 @@ public class Player {
     /**
      * Two Argument Constructor
      * <p>
-     * Ahhhhh
+     * Ahhhhh <----
      * @param firstName
      * @param lastName
      */
@@ -80,13 +80,13 @@ public class Player {
         this.firstName = firstName;
     }
 
+
     /**
      * Retrieves the last name of the person.
      *
      * @return The last name of the person.
      */
-    public String getLastName() {return lastName;
-    }
+    public String getLastName() { return lastName; }
 
 
     /**
@@ -94,7 +94,7 @@ public class Player {
      *
      * @param lastName Set the last name for the player.
      */
-    public void setLastName(String lastName) {this.lastName = lastName;}
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
 
     /**
@@ -117,11 +117,12 @@ public class Player {
     }
 
 
+
     /**
      * Converts the player object into a string.
      * @return The string of the player's name.
      */
     public String toString(){
-        return getFirstName();
+        return getFirstName() + " " + getLastName();
     }
 }
