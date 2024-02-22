@@ -113,11 +113,15 @@ public class QuizMaster {
      *
      * @param fileIn Scanner Object of the file that is being read.
      * @param points The points of the question type.
+     * @return the question object.
      */
-    private static void readQuestionMC(Scanner fileIn, int points){
+    private static QuestionMC readQuestionMC(Scanner fileIn, int points){
+        StringBuilder question =new StringBuilder();
+        char answer = 'A';
+
         if(fileIn.hasNext()){
             // Scans the file question.
-            StringBuilder question = new StringBuilder(fileIn.nextLine());
+            question = new StringBuilder(fileIn.nextLine());
 
             // Gets the number of multiple choice options.
             int numberOfAnswers = Integer.parseInt(fileIn.nextLine());
@@ -136,22 +140,12 @@ public class QuizMaster {
                 }
             }
 
-            // Scans the file question's answer.
+            // Scans the file question's answer and coverts it to a char.
             String stringAnswer = fileIn.nextLine();
-
-            // Converts the answer to char.
-            char answer = stringAnswer.charAt(0);
-            // Stores all data collected to the question database list.
-            QuestionMC questionMC = new QuestionMC(points, question.toString(), answer);
-
-            // Sets each parameter of the object constructor.
-            questionMC.setPoints(points);
-            questionMC.setText(question.toString());
-            questionMC.setAnswer(answer);
-
-            // Adds object to question list.
-            questionsDb.add(questionMC);
+            answer = stringAnswer.charAt(0);
         }
+        // Creates questionMC object and returns it.
+        return new QuestionMC(points, question.toString(), answer);
     }
 
 
@@ -172,26 +166,20 @@ public class QuizMaster {
      *
      * @param fileIn Scanner Object of the file that is being read.
      * @param points The points of the question type.
+     * @return the question object.
      */
-    private static void readQuestionSA(Scanner fileIn, int points){
+    private static QuestionSA readQuestionSA(Scanner fileIn, int points){
+        String question = " ";
+        String answer = " ";
         if(fileIn.hasNext()){
             // Scans the file question.
-            String question = fileIn.nextLine();
+            question = fileIn.nextLine();
 
             // Scans the file question's answer.
-            String answer = fileIn.nextLine();
-
-            // Creates questionSA object.
-            QuestionSA questionSA = new QuestionSA(points, question, answer);
-
-            // Sets each parameter of the object constructor.
-            questionSA.setPoints(points);
-            questionSA.setText(question);
-            questionSA.setAnswer(answer);
-
-            // Adds object to question list.
-            questionsDb.add(questionSA);
+            answer = fileIn.nextLine();
         }
+        // Creates questionSA object and returns it.
+        return new QuestionSA(points, question, answer);
     }
 
 
@@ -212,26 +200,22 @@ public class QuizMaster {
      *
      * @param fileIn Scanner Object of the file that is being read.
      * @param points The points of the question type.
+     * @return the question object.
      */
-    private static void readQuestionTF(Scanner fileIn, int points){
-        if(fileIn.hasNext()){
+    private static QuestionTF readQuestionTF(Scanner fileIn, int points){
+        String question = "null";
+        boolean answer = false;
+
+        if(fileIn.hasNext()) {
             // Scans the file question
-            String question = fileIn.nextLine();
+            question = fileIn.nextLine();
 
             // Scans the files answer.
-            boolean answer = Boolean.parseBoolean(fileIn.nextLine());
+            answer = Boolean.parseBoolean(fileIn.nextLine());
 
-            // Creates questionTF object
-            QuestionTF questionTF = new QuestionTF(points, question, answer);
-
-            // Sets each parameter of the object constructor.
-            questionTF.setPoints(points);
-            questionTF.setText(question);
-            questionTF.setAnswer(answer);
-
-            // Adds object to question list.
-            questionsDb.add(questionTF);
         }
+        // Creates questionTF object and returns it.
+        return new QuestionTF(points, question, answer);
     }
 
 
@@ -262,7 +246,7 @@ public class QuizMaster {
                 // Reads the next line from the file.
                 String questionType = fileIn.nextLine();
 
-                // Separates the question type and points in to 2 parts.a
+                // Separates the question type and points in to 2 parts.
                 String qtype = questionType.split(" ")[0];
                 String qPoints = questionType.split(" ")[1];
 
@@ -272,15 +256,15 @@ public class QuizMaster {
                 // Switch Case that looks for
                 switch (qtype) {
                     case "MC":
-                        readQuestionMC(fileIn, points);
+                        questionsDb.add(readQuestionMC(fileIn, points));
                         break;
 
                     case "SA":
-                        readQuestionSA(fileIn, points);
+                        questionsDb.add(readQuestionSA(fileIn, points));
                         break;
 
                     case "TF":
-                        readQuestionTF(fileIn, points);
+                        questionsDb.add(readQuestionTF(fileIn, points));
                         break;
                 }
             }
@@ -387,9 +371,6 @@ public class QuizMaster {
 
         // Reads the questions from the input file by calling readQuestionDb().
         readQuestionDb(fio.getInFile());
-
-        // Closes the file after reading it.
-        fio.closeFiles();
 
         // Plays the quiz by calling play().
         play(userInput);
