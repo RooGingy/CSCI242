@@ -45,16 +45,14 @@ public abstract class PasswordSecurityHandler implements StringHandler {
 
 
 
-    public String securityLevel(){
+    public String securityLevel() throws IllegalArgumentException {
         String passwordStrenght = null;
 
-        if(length < 8){
+        if (length < 8) {
             passwordStrenght = SECURITY_LEVEL_WEAK;
-        }
-        else if((length >= 8) && (digit || otherCharacter)){
+        } else if ((length >= 8) && (digit || otherCharacter)) {
             passwordStrenght = SECURITY_LEVEL_MEDIUM;
-        }
-        else if((length >= 8) && (digit && otherCharacter)){
+        } else if ((length >= 8) && (digit && otherCharacter)) {
             passwordStrenght = SECURITY_LEVEL_STRONG;
         }
 
