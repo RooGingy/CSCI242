@@ -1,9 +1,9 @@
 package edu.uwp.cs.csci242.assignments.a03.stringhandler;
 
-public abstract class PasswordSecurityHandler implements StringHandler {
-    private int length;
-    private boolean digit;
-    private boolean otherCharacter;
+public class PasswordSecurityHandler implements StringHandler {
+    private int length = 0;
+    private boolean digit = true;
+    private boolean otherCharacter = true;
 
 
 
@@ -12,16 +12,11 @@ public abstract class PasswordSecurityHandler implements StringHandler {
     private final String SECURITY_LEVEL_STRONG = "strong";
 
 
-
-    public PasswordSecurityHandler() {
-    }
-
-    public PasswordSecurityHandler(int length, boolean digit, boolean otherCharacter) {
-        this.length = length;
-        this.digit = digit;
-        this.otherCharacter = otherCharacter;
-    }
-
+//    public PasswordSecurityHandler(int length, boolean digit, boolean otherCharacter) {
+//        this.length = length;
+//        this.digit = digit;
+//        this.otherCharacter = otherCharacter;
+//    }
 
 
     protected int getLength() {
@@ -45,17 +40,48 @@ public abstract class PasswordSecurityHandler implements StringHandler {
 
 
 
-    public String securityLevel() throws IllegalArgumentException {
+    public String securityLevel(){
         String passwordStrenght = null;
 
-        if (length < 8) {
-            passwordStrenght = SECURITY_LEVEL_WEAK;
-        } else if ((length >= 8) && (digit || otherCharacter)) {
-            passwordStrenght = SECURITY_LEVEL_MEDIUM;
-        } else if ((length >= 8) && (digit && otherCharacter)) {
+        if ((length >= 8) && (digit && otherCharacter))
             passwordStrenght = SECURITY_LEVEL_STRONG;
-        }
+        else if ((length >= 8) && (digit || otherCharacter))
+            passwordStrenght = SECURITY_LEVEL_MEDIUM;
+        else
+            passwordStrenght = SECURITY_LEVEL_WEAK;
 
         return passwordStrenght;
+    }
+
+
+    @Override
+    public void processDigit(char digit) {
+        try {
+            this.digit = true;
+            this.length++;
+        }
+        catch (IllegalArgumentException e){
+            throw new IllegalArgumentException(" Invalid Character: " + digit);
+        }
+    }
+
+    @Override
+    public void processLetter(char letter) {
+        try {
+            this.length++;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(" Invalid Character: " + letter);
+        }
+    }
+
+    @Override
+    public void processOther(char other) {
+        try {
+            this.otherCharacter = true;
+            this.length++;
+        }
+        catch (IllegalArgumentException e){
+            throw new IllegalArgumentException(" Invalid Character: " + other);
+        }
     }
 }
