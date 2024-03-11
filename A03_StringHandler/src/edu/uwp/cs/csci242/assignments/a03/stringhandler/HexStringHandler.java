@@ -37,8 +37,7 @@ public class HexStringHandler implements Validator, StringHandler{
     public void processDigit(char digit) {
         try {
             numberList.add(number = digit - '0');
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e){
             throw new IllegalArgumentException(" Invalid Character: " + digit);
         }
     }
@@ -50,11 +49,10 @@ public class HexStringHandler implements Validator, StringHandler{
             letter = letterString.toUpperCase().charAt(0);
             number = letter - 'A'+ NUMBER_LETTER_MIN;
             if(number >= NUMBER_LETTER_MIN && number <= NUMBER_LETTER_MAX){
-                numberList.add(letter - 'A'+ NUMBER_LETTER_MIN);
+                numberList.add(number);
             }
             else validHex = false;
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e){
             throw new IllegalArgumentException(" Invalid Character: " + letter);
         }
     }
@@ -63,8 +61,7 @@ public class HexStringHandler implements Validator, StringHandler{
     public void processOther(char other) {
         try {
             validHex = false;
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(" Invalid Character: " + other);
         }
     }

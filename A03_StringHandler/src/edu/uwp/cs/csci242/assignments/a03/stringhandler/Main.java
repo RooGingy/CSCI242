@@ -6,14 +6,15 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        String input;
 
         //Part 1:
         System.out.println("Enter a hexadecimal number > ");
-        String input = scanner.next();
+        input = scanner.next();
 
         HexStringHandler hsh = new HexStringHandler();
-        StringParser sp = new StringParser(hsh);
-        sp.parse(input);
+        new StringParser(hsh);
+        StringParser.parse(input);
 
         System.out.println(input + " = " + hsh.getNumber());
 
@@ -26,9 +27,17 @@ public class Main {
         input = scanner.next();
 
         PasswordSecurityHandler psh = new PasswordSecurityHandler();
-        sp = new StringParser(psh);
-        sp.parse(input);
+        new StringParser(psh);
+        StringParser.parse(input);
 
         System.out.println(input +"'s security is: " + psh.securityLevel());
+
+
+
+        // EC 1:
+        System.out.println("\nEnter a us phone number using this format XXX-XXX-XXXX >");
+        input=scanner.next();
+
+
     }
 }
