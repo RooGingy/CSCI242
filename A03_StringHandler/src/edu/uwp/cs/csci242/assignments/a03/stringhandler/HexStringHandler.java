@@ -24,7 +24,6 @@ public class HexStringHandler implements Validator, StringHandler{
 
     public int getNumber() {
         int result = 0;
-
         // Check if string is valid. If so then result will be calculated,
         // else result will equal INVALID_NUMBER.
         if(isValid()){

@@ -44,7 +44,7 @@ public class Main {
         new StringParser(utsh1);
         StringParser.parse(input);
 
-        System.out.println(input + " is " + utsh1.getString());
+        System.out.println(input + " is " + utsh1.verifyPhoneNumber());
 
 
 
@@ -56,10 +56,17 @@ public class Main {
         new StringParser(utsh2);
         StringParser.parse(input);
 
-        System.out.println(input + " is " + utsh2.getString());
+        System.out.println(input + " is " + utsh2.verifyPhoneNumber());
 
 
 
         // Extra Credit 2:
     }
 }
+// Test:
+// (123) 123-1234  : T
+// (123) 123-12345 : T
+// (abc) 123-1234  : T
+// (123) abc-12345 : T
+// (123) 123-12    : T
+// (1a3) 1b3-12    : T
