@@ -25,11 +25,10 @@ public class StringParser {
         // Converts String to char array.
         char[] charArray = s.toCharArray();
 
-        for(int i = 0; i < charArray.length; i++){
-            if(charArray[i] >= '0' && charArray[i] <= '9')
+        for(int i = 0; i < charArray.length; i++) {
+            if (charArray[i]  >= '0' && charArray[i] <= '9')
                 handler.processDigit(charArray[i]);
-            else if ((charArray[i] >= 'A' && charArray[i] <= 'Z') ||
-                     (charArray[i] >= 'a' && charArray[i] <= 'z'))
+            else if((charArray[i] >= 'A' && charArray[i]  <= 'Z') || (charArray[i]  >= 'a' && charArray[i]  <= 'z'))
                 handler.processLetter(charArray[i]);
             else
                 handler.processOther(charArray[i]);

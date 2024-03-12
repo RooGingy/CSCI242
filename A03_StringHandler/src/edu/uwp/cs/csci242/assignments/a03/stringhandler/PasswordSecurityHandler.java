@@ -1,15 +1,17 @@
 package edu.uwp.cs.csci242.assignments.a03.stringhandler;
 
 public class PasswordSecurityHandler implements StringHandler {
-    private int length;
-    private boolean digit;
-    private boolean otherCharacter;
+    private int length = 0;
+    private boolean digit = false;
+    private boolean otherCharacter = false;
 
 
 
     private final String SECURITY_LEVEL_WEAK = "weak";
     private final String SECURITY_LEVEL_MEDIUM = "medium";
     private final String SECURITY_LEVEL_STRONG = "strong";
+    private final int PASSWORD_LENGTH = 8;
+
 
 
     public PasswordSecurityHandler(){
@@ -26,11 +28,13 @@ public class PasswordSecurityHandler implements StringHandler {
     }
 
     protected boolean isDigit() {return digit;}
+
     public void setDigit(boolean digit) {
         this.digit = digit;
     }
 
     protected boolean isOtherCharacter() {return otherCharacter;}
+
     public void setOtherCharacter(boolean otherCharacter) {
         this.otherCharacter = otherCharacter;
     }
@@ -40,13 +44,13 @@ public class PasswordSecurityHandler implements StringHandler {
     public String securityLevel(){
         String passwordStrength = null;
 
-        if((length >= 8) && (digit && otherCharacter)){
+        if((getLength() >= PASSWORD_LENGTH) && (isDigit() && isOtherCharacter())){
             passwordStrength = SECURITY_LEVEL_STRONG;
         }
-        else if((length >= 8) && (digit || otherCharacter)){
+        else if((getLength() >= PASSWORD_LENGTH) && (isDigit() || isOtherCharacter())){
             passwordStrength = SECURITY_LEVEL_MEDIUM;
         }
-        else {
+        else if (getLength() < PASSWORD_LENGTH){
             passwordStrength = SECURITY_LEVEL_WEAK;
         }
 
@@ -58,8 +62,7 @@ public class PasswordSecurityHandler implements StringHandler {
     public void processDigit(char digit) {
         try {
             if(digit >= '0' && digit <= '9' ) {
-                length++;
-                setLength(length++);
+                setLength(getLength() + 1);
                 setDigit(true);
             }
         } catch (IllegalArgumentException e){
@@ -71,8 +74,7 @@ public class PasswordSecurityHandler implements StringHandler {
     public void processLetter(char letter) {
         try {
             if((letter >= 'A' && letter <= 'Z') || (letter >= 'a' && letter <= 'z')) {
-                length++;
-                setLength(length);
+                setLength(getLength() + 1);
             }
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(" Invalid Character: " + letter);
@@ -82,9 +84,10 @@ public class PasswordSecurityHandler implements StringHandler {
     @Override
     public void processOther(char other) {
         try {
-            length++;
-            setLength(length);
-            setOtherCharacter(true);
+            if ((other >= '!' && other <= '/') || (other >= ':' && other <= '@') || (other >= '[' && other <= '`') || (other >= '{' && other <= '~')) {
+                setLength(getLength() + 1);
+                setOtherCharacter(true);
+            }
         } catch (IllegalArgumentException e){
             throw new IllegalArgumentException(" Invalid Character: " + other);
         }
