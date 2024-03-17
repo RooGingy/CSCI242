@@ -1,9 +1,29 @@
 package edu.uwp.cs.csci242.assignments.a03.stringhandler;
-
 import java.util.Scanner;
 
+/**
+ * Contains the main method to execute the StringParser and various StringHandlers.
+ * <p>
+ * This class prompts the user for input and utilizes different StringHandlers through StringParser to process the input.
+ * It demonstrates the functionality of handling hexadecimal values, passwords, and US phone numbers.
+ *
+ * @author Austin Moser
+ * @edu.uwp.cs.242.course CSCI 242 - Computer Science II
+ * @edu.uwp.cs.242.section 003
+ * @edu.uwp.cs.242.assignment 3
+ * @bugs none
+ */
 public class Main {
-
+    /**
+     * This method demonstrates the usage of StringParser class to handle different types of strings,
+     * such as hexadecimal numbers, passwords, and US phone numbers, with various handlers.
+     * <p>
+     * The method prompts the user to input different types of strings and utilizes the StringParser
+     * class to parse them. It then prints the results obtained from different handlers.
+     * <p>
+     * The method showcases the functionality of parsing hexadecimal numbers, evaluating password
+     * security, and formatting US phone numbers using different handlers.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -57,16 +77,5 @@ public class Main {
         StringParser.parse(input);
 
         System.out.println(input + " is " + utsh2.verifyPhoneNumber());
-
-
-
-        // Extra Credit 2:
     }
 }
-// Test:
-// (123) 123-1234  : T
-// (123) 123-12345 : T
-// (abc) 123-1234  : T
-// (123) abc-12345 : T
-// (123) 123-12    : T
-// (1a3) 1b3-12    : T
