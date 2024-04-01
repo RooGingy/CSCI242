@@ -1,33 +1,43 @@
 package edu.uwp.cs.csci242.assignments.a04.recursion;
 public class Recursion{
-    public static String stringClean(String str, String newStr){
-        try {
-            int position = 0;
-            int nextPosition = 1;
+    public static String stringClean(String str, String newStr) {
+        int nextPosition = 1;
 
-            newStr += str.toLowerCase().charAt(position);
+        if (nextPosition < str.length() - 1) {
+            // Sets the first 2 charters to variables and lower cases them.
+            char char1 = Character.toLowerCase(str.charAt(0));
+            char char2 = Character.toLowerCase(str.charAt(nextPosition));
 
-            while (str.charAt(position) == str.charAt(nextPosition)) {
+            // Moves the first index of each string to a new string.
+            newStr += str.substring(0,1);
+
+            // Counts how many charters are the same as the first one.
+            while(char1 == char2){
                 nextPosition++;
+                char2 = Character.toLowerCase(str.charAt(nextPosition));
             }
 
-            str = str.replace(str.substring(position, nextPosition), "");
+            // Removes characters as in on big chunk.
+            str = str.replace(str.substring(0, nextPosition), "");
 
+            // Calls method again.
             return stringClean(str, newStr);
 
-        } catch (IndexOutOfBoundsException e){
-            return newStr;
         }
+        // Base Case: Returns newStr if nextPosition is out of bounds of string length.
+        else return newStr + str.charAt(0);
     }
+
 
     public static int countDigit (int num, int digit, int count){
         if(num > 0) {
             int holder = num % 10;
-            if (holder == digit) {
+
+            if (holder == digit)
                 count++;
-            }
+
             return countDigit(num/10, digit, count);
-        } else {return count;}
+        } else return count;
     }
 
 
@@ -38,9 +48,7 @@ public class Recursion{
             str = str.replace("[]", "");
         } else if (str.contains("{}")) {
             str = str.replace("{}", "");
-        } else {
-            return str.isBlank();
-        }
+        } else return str.isBlank();
         return isBalanced(str);
     }
 
@@ -53,21 +61,43 @@ public class Recursion{
             } else {
                 sum1 += array[position];
             }
-        }else { return sum1 == sum2; }
+        } else return sum1 == sum2;
 
         position++;
         return splitArray(array, position, sum1, sum2);
     }
 
+    public static void trickyHanoi (int disks){
+        if(disks == 0){
+            return;
+        }
+
+        if (disks % 2 != 0) {
+            System.out.println("Move disk from peg A to peg B.");
+            System.out.println("Move disk from peg B to peg C.");
+            trickyHanoi(disks - 1);
+        } else {
+            System.out.println("Move disk from peg A to peg B.");
+            System.out.println("Move disk from peg B to peg C.");
+
+            System.out.println("Move disk from peg A to peg B.");
+
+            System.out.println("Move disk from peg C to peg B.");
+            System.out.println("Move disk from peg B to peg A.");
+
+            System.out.println("Move disk from peg B to peg C.");
+            trickyHanoi(disks - 1);
+        }
+    }
 
 
     public static void main(String[] args){
         // Method 1:
         String newStr = "";
         System.out.println("\nMethod 1:");
-        System.out.println(stringClean("aaaabbbccd", newStr));
-        System.out.println(stringClean("yyzzza", newStr));
         System.out.println(stringClean("Hello", newStr));
+        System.out.println(stringClean("aaaabbbccdaa", newStr));
+        System.out.println(stringClean("yyzzza", newStr));
 
 
         // Method 2:
@@ -95,7 +125,11 @@ public class Recursion{
 
 
         // Method 5:
-
+        System.out.println("\nMethod 5:");
+        System.out.println("Disks = 2");
+        trickyHanoi(2);
+        System.out.println("Disks = 3");
+        trickyHanoi(3);
     }
 }
 
