@@ -1,5 +1,7 @@
+import javax.print.DocFlavor;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -12,61 +14,37 @@ public class Synonyms {
     }
 
     public void parseString(URL[] corpus) throws IOException {
-        List<String> sentences = new ArrayList<>();
-        List<String> words = new ArrayList<>();
-
         for (URL url : corpus) {
             // Opens the URL.
             InputStream inputStream = url.openStream();
             // Reads in the URL.
             Scanner urlReader = new Scanner(inputStream);
             urlReader.useDelimiter("[\\.\\?!]|\\Z");
+
+
             // Loops thought each line of text.
             while (urlReader.hasNext()) {
-                // Gets sentence and adds them to ArrayList
+                // Gets sentence and adds them to the sentence Collection.
                 String sentence = urlReader.next();
-                sentence = sentence.replaceAll("\\W+", " ").toLowerCase();
-                sentences.add(sentence);
+                sentence = sentence.replaceAll("\\W+", " ").toLowerCase().trim();
+                // Adds all words to the words ArrayList.
+                ArrayList<String> words = new ArrayList<>(Arrays.asList(sentence.split(" ")));
 
-                String[] wordsArr = sentence.split("\\s+");
-                words.addAll(Arrays.asList(wordsArr));
-            }
-
-            Iterator<String> wordIterator = words.iterator();
-            Iterator<String> newWordIterator = words.iterator();
-            Iterator<String> sentenceIterator = sentences.iterator();
-
-            while(wordIterator.hasNext()) {
-                if(!descriptors.containsKey(wordIterator.next())) {
-                    descriptors.put(wordIterator.next(), new HashMap<>());
-                }
-                while (sentenceIterator.hasNext()) {
-                    HashMap<String, Integer> innerMap;
-                    while (newWordIterator.hasNext()) {
-
-                    }
-                }
-
-            }
                 for (String word : words) {
-                    // Check if the word is already in the main Hashmap
-                    if(!word.isEmpty()) {
-                        if (!descriptors.containsKey(word)) {
-                            // Stores word as key in Hashmap
-                            descriptors.put(word, new HashMap<>());
-                        }
-                        // Finds the sentence that goes to the sentence that contain the key word.
-                        if (sentence.contains(word)) {
-                            // Loops through the word list to get the words again.
+                    if (!descriptors.containsKey(word)) {
+                        // Stores word as key in Hashmap
+                        descriptors.put(word, new HashMap<>());
+                    }
+                    if (sentence.contains(word)) {
 
-                            for (String word2 : words) {
-                                // Ignores keyed word.
-                                if (!word2.contains(word)) {
-                                    // Gets the inner map for word.
-                                    HashMap<String, Integer> innerMap = descriptors.get(word);
-                                    // Update the count each word 2 that has word one in it.
-                                    innerMap.put(word2, innerMap.getOrDefault(word2, 0) + 1);
-                                }
+                        // Loops through the word list to get the words again.
+                        for (String newWord : words) {
+                            // Ignores keyed word.
+                            if (!newWord.contains(word)) {
+                                // Gets the inner map for word.
+                                HashMap<String, Integer> innerMap = descriptors.get(word);
+                                // Update the count each word 2 that has word one in it.
+                                innerMap.put(newWord, innerMap.getOrDefault(newWord, 0) + 1);
                             }
                         }
                     }
@@ -141,16 +119,25 @@ public class Synonyms {
             System.out.println("Enter a word:");
             String word = sc.nextLine();
 
-            if(word.isBlank()) break;
+            if (word.isBlank()) break;
 
             System.out.println("Enter the choices:");
             String choices = sc.nextLine();
+
+            double higest = -1.0 ;
+            String mostSimular= "";
 
             String[] choicesArr = choices.toLowerCase().split("\\s+");
             for (String s : choicesArr) {
                 double similarity = tc.calculateCosineSimilarity(word, s);
                 System.out.println(s + " " + similarity);
+
+                if (similarity > higest) {
+                    higest = similarity;
+                    mostSimular = s;
+                }
             }
+            System.out.println(mostSimular + "\n");
         }
     }
 }
