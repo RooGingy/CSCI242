@@ -42,7 +42,10 @@ public class TestClass {
                         }
                     }
                 }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             }
         }
     }
