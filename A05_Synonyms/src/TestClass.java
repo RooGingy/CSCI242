@@ -1,5 +1,5 @@
 /**
- * This class was used to test a smaller sample, so I can be sure I parse right and do the math right.
+ * This class was used to test a smaller sample so I can be sure I parse right and do the math right
  */
 
 import java.util.HashMap;
@@ -42,6 +42,7 @@ public class TestClass {
                         }
                     }
                 }
+
             }
         }
     }
